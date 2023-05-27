@@ -7,10 +7,9 @@ import java.util.Map;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.io.*;
-import org.apache.hadoop.mapreduce.*;
 
 
-public class wcReducer extends Reducer<Text, IntWritable, Text, Text> {
+public class Reducer extends org.apache.hadoop.mapreduce.Reducer<Text, IntWritable, Text, Text> {
     private String jobName;
     private Text text = new Text();
     private Map<Text, Text> candidateVotes;

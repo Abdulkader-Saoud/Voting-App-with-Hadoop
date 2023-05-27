@@ -1,24 +1,24 @@
 package org.saoud;
 
-import org.apache.hadoop.conf.Configuration;
-import org.apache.hadoop.fs.FSDataInputStream;
-import org.apache.hadoop.fs.FileSystem;
-import org.apache.hadoop.fs.Path;
-
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.nio.charset.StandardCharsets;
 import java.util.Map;
+
+import static org.saoud.HDFSfun.checkOutput;
+import static org.saoud.HDFSfun.readFileFromHDFS;
 
 public class ButtonCom extends JButton {
 
     public ButtonCom(String text,String job){
         super(text);
-
+        setPreferredSize(new Dimension(400, 35));
+        setMaximumSize(new Dimension(400, 35));
+        setAlignmentX(Component.CENTER_ALIGNMENT);
 
         addActionListener(new ActionListener() {
             @Override
@@ -48,7 +48,7 @@ public class ButtonCom extends JButton {
     }
     public static void hadoopJob(String job,String inputPath,String outputPath) throws IOException {
         String hadoopHome = "C:\\big-data\\hadoop-3.3.0";
-        String command = "hadoop jar C:\\Users\\abdul\\IdeaProjects\\WordCount\\target\\WordCount-1.0-SNAPSHOT.jar org.saoud.wcRunner " + job + " " + inputPath + " " + outputPath;
+        String command = "hadoop jar C:\\Users\\abdul\\IdeaProjects\\WordCount\\target\\WordCount-1.0-SNAPSHOT.jar org.saoud.Runner " + job + " " + inputPath + " " + outputPath;
         ProcessBuilder pb = new ProcessBuilder("cmd.exe", "/c", command);
         Map<String, String> env = pb.environment();
         env.put("HADOOP_HOME", hadoopHome);
@@ -62,51 +62,9 @@ public class ButtonCom extends JButton {
         } catch (IOException ex) {
             ex.printStackTrace();
         }
-
     }
-    public static void readFileFromHDFS(JTextArea outputTextArea, String job) {
-        try {
 
-            Configuration conf = new Configuration();
-            conf.set("fs.defaultFS", "hdfs://192.168.230.1:9000");
 
-            FileSystem fileSystem = FileSystem.get(conf);
-            String pathS = "/output" + job +  "/part-r-00000";
-            Path hdfsReadPath = new Path(pathS);
-            FSDataInputStream inputStream = fileSystem.open(hdfsReadPath);
-
-            BufferedReader bufferedReader = new BufferedReader(
-                    new InputStreamReader(inputStream, StandardCharsets.UTF_8));
-            String s;
-            outputTextArea.append("  The hadoop output :\n");
-            while ((s = bufferedReader.readLine()) != null) {
-                outputTextArea.append(s + "\n");
-            }
-
-            bufferedReader.close();
-            fileSystem.close();
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-    }
-    public static boolean checkOutput(String job) {
-        try {
-            Configuration conf = new Configuration();
-            String pathS = "/output" + job +  "/part-r-00000";
-            Path path = new Path(pathS);
-            conf.set("fs.defaultFS", "hdfs://192.168.230.1:9000");
-            FileSystem fs = FileSystem.get(conf);
-            if (fs.exists(path)){
-                fs.close();
-                return true;
-            }
-            return false;
-        } catch (IOException ex) {
-
-            ex.printStackTrace();
-            return false;
-        }
-    }
 
 }
 

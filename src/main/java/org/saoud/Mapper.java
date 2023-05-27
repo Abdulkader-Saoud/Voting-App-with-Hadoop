@@ -2,10 +2,9 @@ package org.saoud;
 
 import java.io.IOException;
 import org.apache.hadoop.io.*;
-import org.apache.hadoop.mapreduce.*;
 import org.apache.hadoop.conf.Configuration;
 
-public class wcMapper extends Mapper<LongWritable, Text, Text, IntWritable> {
+public class Mapper extends org.apache.hadoop.mapreduce.Mapper<LongWritable, Text, Text, IntWritable> {
     private String jobName;
 
     public void setup(Context context) {
