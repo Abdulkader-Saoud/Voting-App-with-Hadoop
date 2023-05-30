@@ -2,7 +2,6 @@ package org.saoud;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FSDataInputStream;
-import org.apache.hadoop.fs.FileStatus;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
 
@@ -16,7 +15,7 @@ public class HDFSfun {
     public static void deleteDir(String dirPath){
         try {
             Configuration conf = new Configuration();
-            conf.set("fs.defaultFS", "hdfs://192.168.230.1:9000");
+            conf.set("fs.defaultFS", "hdfs://namenode:9000");
 
             FileSystem fs = FileSystem.get(conf);
             Path mPath = new Path(dirPath);
@@ -35,7 +34,7 @@ public class HDFSfun {
     public static void setInput(String inPath){
         try {
             Configuration conf = new Configuration();
-            conf.set("fs.defaultFS", "hdfs://192.168.230.1:9000");
+            conf.set("fs.defaultFS", "hdfs://namenode:9000");
 
             FileSystem fs = FileSystem.get(conf);
             Path directoryPath = new Path("/input");
@@ -57,7 +56,7 @@ public class HDFSfun {
         try {
 
             Configuration conf = new Configuration();
-            conf.set("fs.defaultFS", "hdfs://192.168.230.1:9000");
+            conf.set("fs.defaultFS", "hdfs://namenode:9000");
 
             FileSystem fileSystem = FileSystem.get(conf);
             String pathS = "/output" + job +  "/part-r-00000";
@@ -83,7 +82,7 @@ public class HDFSfun {
             Configuration conf = new Configuration();
             String pathS = "/output" + job +  "/part-r-00000";
             Path path = new Path(pathS);
-            conf.set("fs.defaultFS", "hdfs://192.168.230.1:9000");
+            conf.set("fs.defaultFS", "hdfs://namenode:9000");
             FileSystem fs = FileSystem.get(conf);
             if (fs.exists(path)){
                 fs.close();
