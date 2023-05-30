@@ -15,7 +15,7 @@ public class MapReduceGUI extends JFrame {
 
 
     private void initComponents() {
-        setTitle("Candidates APP");
+        setTitle("Votes Counter APP");
         setSize(500, 600);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 

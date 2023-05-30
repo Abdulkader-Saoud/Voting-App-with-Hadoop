@@ -80,7 +80,7 @@ public class HDFSfun {
     public static boolean checkOutput(String job) {
         try {
             Configuration conf = new Configuration();
-            String pathS = "/output" + job +  "/part-r-00000";
+            String pathS = "/output" + job;
             Path path = new Path(pathS);
             conf.set("fs.defaultFS", "hdfs://namenode:9000");
             FileSystem fs = FileSystem.get(conf);

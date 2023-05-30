@@ -16,7 +16,7 @@ public class Runner {
 
         conf.set("job.name", args[0]);
         PropertyConfigurator.configure("C:/Users/abdul/OneDrive/Desktop/YTU/BVIA/Proje/log4j.xml");
-        Job job = Job.getInstance(conf, "wordcount");
+        Job job = Job.getInstance(conf, "VotesCounterApp");
 
         job.setJarByClass(Runner.class);
         job.setReducerClass(Reducer.class);

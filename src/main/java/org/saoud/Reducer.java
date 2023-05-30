@@ -66,7 +66,7 @@ public class Reducer extends org.apache.hadoop.mapreduce.Reducer<Text, IntWritab
                 int voteCount = Integer.parseInt(entry.getValue().toString());
                 double per = (voteCount / (double) total) * 100;
 
-                text.set(String.format("%.2f", per) + "%");
+                text.set(String.format("%.5f", per) + "%");
                 context.write(candidate, text);
             }
         }
